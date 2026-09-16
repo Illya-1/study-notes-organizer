@@ -1,0 +1,73 @@
+*, *::before, *::after{
+    box-sizing: border-box;
+}
+
+body{
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #1E293B;
+    background-color: #F8FAFC;
+}
+
+header{
+    background-color: #1E293B;
+    color:#FFFFFF;
+    padding: 20px 24px;
+}
+
+header h1{
+    font-size: 1.75rem;
+    font-weight: 600;
+}
+
+header nav a{
+    color: #E2E8F0;
+    text-decoration: none;
+    margin-right: 20px;
+}
+
+header nav a:hover{
+    color: #FFFFFF;
+}
+
+main{
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 0px 16px;
+}
+
+main section{
+    padding: 16px;
+}
+
+.card{
+    padding: 10px;
+    border: 1px solid black;
+    margin-bottom: 16px;
+}
+
+.card img {
+  max-width: 100%;
+  height: auto;
+}
+
+aside {
+  background-color: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-radius: 8px;
+  margin-top: 32px;
+  
+  padding: 30px;
+  line-height: 1.6;
+}
+
+footer {
+  background-color: #1E293B;
+  padding: 24px 16px;
+
+  font-size: 0.75rem;
+  text-align: center;
+  color:#FFFFFF;
+}
