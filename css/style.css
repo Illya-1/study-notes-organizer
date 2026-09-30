@@ -2,6 +2,11 @@
     box-sizing: border-box;
 }
 
+img {
+    max-width: 100%;
+    height: auto;
+}
+
 body{
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
@@ -11,10 +16,12 @@ body{
     background-color: #F8FAFC;
 }
 
+
 header{
     background-color: #1E293B;
     color:#FFFFFF;
     padding: 20px 24px;
+    text-align: center;
 }
 
 header h1{
@@ -25,49 +32,54 @@ header h1{
 header nav a{
     color: #E2E8F0;
     text-decoration: none;
-    margin-right: 20px;
+    margin: 4px 20px;
+    display: inline-block;
 }
 
 header nav a:hover{
     color: #FFFFFF;
 }
 
-main{
+.container{
     max-width: 600px;
     margin: 30px auto;
     padding: 0px 16px;
 }
 
-main section{
+
+.subject{
+    margin-bottom: 24px;
     padding: 16px;
+
+    background-color: #EDF2F7;
+
+    border-radius: 8px;
 }
 
 .card{
-    padding: 10px;
-    border: 1px solid black;
     margin-bottom: 16px;
-}
+    padding: 10px;
 
-.card img {
-  max-width: 100%;
-  height: auto;
+    background-color: #FFFFFF;
+
+    border: 1px solid #CBD5E1;
 }
 
 aside {
-  background-color: #FFFFFF;
-  border: 1px solid #CBD5E1;
-  border-radius: 8px;
-  margin-top: 32px;
-  
-  padding: 30px;
-  line-height: 1.6;
+    background-color: #FFFFFF;
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+    margin-top: 32px;
+
+    padding: 30px;
+    line-height: 1.6;
 }
 
 footer {
-  background-color: #1E293B;
-  padding: 24px 16px;
+    background-color: #1E293B;
+    padding: 24px 16px;
 
-  font-size: 0.75rem;
-  text-align: center;
-  color:#FFFFFF;
+    font-size: 0.75rem;
+    text-align: center;
+    color:#FFFFFF;
 }
