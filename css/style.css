@@ -16,23 +16,55 @@ body{
     background-color: #F8FAFC;
 }
 
+.container{
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
 
 header{
     background-color: #1E293B;
     color:#FFFFFF;
-    padding: 20px 24px;
+
+    padding: 24px 0;
+    @media (min-width: 600px){padding: 48px 0;}
+}
+
+.header-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    @media (min-width: 1024px) {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
     text-align: center;
 }
 
 header h1{
     font-size: 1.75rem;
+    @media (min-width: 1024px) {font-size: 2rem;}
+
     font-weight: 600;
+    margin: 0;
+    flex-shrink: 0;
+}
+
+header nav{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    text-align: center;
 }
 
 header nav a{
     color: #E2E8F0;
     text-decoration: none;
-    margin: 4px 20px;
     display: inline-block;
 }
 
@@ -40,36 +72,63 @@ header nav a:hover{
     color: #FFFFFF;
 }
 
-.container{
-    max-width: 600px;
-    margin: 30px auto;
-    padding: 0px 16px;
+
+.content-wrapper{
+    margin-top: 30px;
+    margin-bottom: 40px;
+
+    @media (min-width: 1024px){
+        display: grid;
+        grid-template-columns: 1fr 360px;
+        gap: 32px;
+    }
 }
 
 
+main{
+    display:flex;
+    flex-direction: column;
+    gap: 36px;
+}
+
 .subject{
-    margin-bottom: 24px;
+    /* margin-bottom: 24px; */
     padding: 16px;
 
     background-color: #EDF2F7;
-
     border-radius: 8px;
 }
 
+
+.cards-container{
+    display:grid;
+    grid-template-columns: 1fr;
+    @media (min-width: 600px) {grid-template-columns: repeat(2, 1fr);}
+    @media (min-width: 1280px) {grid-template-columns: repeat(3, 1fr);}
+
+    grid-auto-rows: auto auto 1fr;
+    
+    gap: 20px;
+}
+
 .card{
-    margin-bottom: 16px;
     padding: 10px;
 
     background-color: #FFFFFF;
-
     border: 1px solid #CBD5E1;
+
+    display: grid;
+    grid-row: span 3;
+    grid-template-rows: subgrid;
 }
 
 aside {
     background-color: #FFFFFF;
     border: 1px solid #CBD5E1;
     border-radius: 8px;
+
     margin-top: 32px;
+    @media (min-width: 1024px){margin-top: 0px;}
 
     padding: 30px;
     line-height: 1.6;
