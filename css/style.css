@@ -2,18 +2,89 @@
     box-sizing: border-box;
 }
 
-img {
-    max-width: 100%;
-    height: auto;
+:root {
+    --color-bg-page: #F8FAFC;
+    --color-bg-subject: #EDF2F7;
+    --color-bg-card: #FFFFFF;
+    --color-bg-secondary: #1E293B;
+
+    --color-text-main: #1E293B;
+    --color-text-secondary: #FFFFFF;
+    --color-text-nav:#E2E8F0;
+    --color-text-nav-hover: #FFFFFF;
+
+    --color-border-card: #CBD5E1;
+
+    --subject-calculus: #C2410C;
+    --subject-web-dev: #0F766E;
+    --subject-2: #1D4ED8;
+    --subject-3: #6D28D9;
+    --subject-4: #047857;
+
+
+    --font-family: sans-serif;
+    --line-height-base: 1.6;
+    --line-height-heading: 1.25;
+
+    --font-size-sm: 0.875rem;
+    --font-size-base: 1rem;
+    --font-size-h3: 1.125rem;
+    --font-size-h2: 1.125rem;
+    --font-size-h2-desktop: 1.375rem;
+    --font-size-h1: 1.75rem;
+    --font-size-h1-desktop: 2rem;
+}
+
+h1{
+    font-size: var(--font-size-h1);
+    @media (min-width: 1024px) {font-size: var(--font-size-h1-desktop);}
+
+    line-height: var(--line-height-heading);
+    font-weight: 700;
+}
+
+h2{
+    font-size: var(--font-size-h2);
+    @media (min-width: 1024px) {font-size: var(--font-size-h2-desktop);}
+
+    line-height: var(--line-height-heading);
+    font-weight: 700;
+
+    margin-top: 0;
+}
+
+h3{
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-heading);
+    font-weight: 600;
+
+    margin-top: 0;
+}
+
+nav a, footer{
+    font-size: var(--font-size-sm);
+    font-weight: 500;
 }
 
 body{
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-base);
+    color: var(--color-text-main);
+    
+    background-color: var(--color-bg-page);
+
     margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 1rem;
-    line-height: 1.6;
-    color: #1E293B;
-    background-color: #F8FAFC;
+
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
 }
 
 .container{
@@ -24,8 +95,8 @@ body{
 
 
 header{
-    background-color: #1E293B;
-    color:#FFFFFF;
+    background-color: var(--color-bg-secondary);
+    color:var(--color-text-secondary);
 
     padding: 24px 0;
     @media (min-width: 600px){padding: 48px 0;}
@@ -45,10 +116,6 @@ header{
 }
 
 header h1{
-    font-size: 1.75rem;
-    @media (min-width: 1024px) {font-size: 2rem;}
-
-    font-weight: 600;
     margin: 0;
     flex-shrink: 0;
 }
@@ -63,20 +130,35 @@ header nav{
 }
 
 header nav a{
-    color: #E2E8F0;
+    color: var(--color-text-nav);
     text-decoration: none;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
 }
 
 header nav a:hover{
-    color: #FFFFFF;
+    color: var(--color-text-nav-hover);
 }
 
+header nav a::before {
+  content: "";
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  outline: 2px solid #FFFFFF;
+}
+
+header nav a[href="#calculus"]::before {
+  background-color: var(--subject-calculus);
+}
+
+header nav a[href="#web-dev"]::before {
+  background-color: var(--subject-web-dev);
+}
 
 .content-wrapper{
-    margin-top: 30px;
-    margin-bottom: 40px;
-
     @media (min-width: 1024px){
         display: grid;
         grid-template-columns: 1fr 360px;
@@ -85,20 +167,34 @@ header nav a:hover{
 }
 
 
-main{
+.subjects-container{
     display:flex;
     flex-direction: column;
     gap: 36px;
 }
 
 .subject{
-    /* margin-bottom: 24px; */
     padding: 16px;
 
-    background-color: #EDF2F7;
+    background-color: var(--color-bg-subject);
     border-radius: 8px;
 }
 
+#calculus{
+    border: 2px solid var(--subject-calculus);
+}
+
+#calculus h2{
+    color: var(--subject-calculus);
+}
+
+#web-dev{
+    border: 2px solid var(--subject-web-dev);
+}
+
+#web-dev h2{
+    color: var(--subject-web-dev);
+}
 
 .cards-container{
     display:grid;
@@ -114,8 +210,8 @@ main{
 .card{
     padding: 10px;
 
-    background-color: #FFFFFF;
-    border: 1px solid #CBD5E1;
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border-card);
 
     display: grid;
     grid-row: span 3;
@@ -123,22 +219,20 @@ main{
 }
 
 aside {
-    background-color: #FFFFFF;
-    border: 1px solid #CBD5E1;
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border-card);
     border-radius: 8px;
 
-    margin-top: 32px;
+    margin-top: 60px;
     @media (min-width: 1024px){margin-top: 0px;}
 
     padding: 30px;
-    line-height: 1.6;
 }
 
 footer {
-    background-color: #1E293B;
+    background-color: var(--color-bg-secondary);
     padding: 24px 16px;
 
-    font-size: 0.75rem;
     text-align: center;
-    color:#FFFFFF;
+    color:var(--color-text-secondary);
 }
