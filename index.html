@@ -11,19 +11,17 @@
     <header>
         <div class="container header-container">
             <h1>«Органайзер конспектів»</h1>
-            <nav>
-                <a href="#calculus">Математичний аналіз</a>
-                <a href="#web-dev">Веб-програмування</a>
-            </nav>
         </div>
     </header>
 
     <div class="container content-wrapper">
-        <main class="subjects-container">
-            <section id="calculus" class="subject">
-                <h2>Математичний аналіз</h2>
-
-                <div class="cards-container">
+        <main>
+            <section>
+                <div class="section-header">
+                    <h2>Всі конспекти</h2>
+                    <p id="notes-count"></p>
+                </div>
+                <div id="notes-list" class="cards-container">
                     <article class="card">
                         <h3>Інтеграл. Повторення</h3>
                         <img src="https://placehold.co/600x400" alt="Зображення інтеграла та графіка де застосовується інтеграл">
@@ -73,28 +71,6 @@
                     </article>
                 </div>
             </section>
-
-            <section id="web-dev" class="subject">
-                <h2>Веб-програмування</h2>
-
-                <div class="cards-container">
-                    <article class="card">
-                        <h3>Flexbox</h3>
-                        <img src="https://placehold.co/600x400" alt="Зображення flex лейаута">
-                        <p>
-                            В цьому конспекті ми розберемо що таке Flexbox та як його використовувати
-                        </p>
-                    </article>
-
-                    <article class="card">
-                        <h3>Grid та його використання</h3>
-                        <img src="https://placehold.co/600x400" alt="Зображення grid лейаута">
-                        <p>
-                            Цей конспет про технологію Grid, що воно таке та як використовувати
-                        </p>
-                    </article>
-                </div>
-            </section>
         </main>
 
         <aside>
@@ -106,7 +82,6 @@
             </article>
         </aside>
     </div>
-
     
 
     <footer>

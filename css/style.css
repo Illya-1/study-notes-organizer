@@ -15,11 +15,7 @@
 
     --color-border-card: #CBD5E1;
 
-    --subject-calculus: #C2410C;
-    --subject-web-dev: #0F766E;
-    --subject-2: #1D4ED8;
-    --subject-3: #6D28D9;
-    --subject-4: #047857;
+    --color-exam-soon: #EF4444;
 
 
     --font-family: sans-serif;
@@ -61,7 +57,7 @@ h3{
     margin-top: 0;
 }
 
-nav a, footer{
+footer{
     font-size: var(--font-size-sm);
     font-weight: 500;
 }
@@ -102,60 +98,10 @@ header{
     @media (min-width: 600px){padding: 48px 0;}
 }
 
-.header-container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-    @media (min-width: 1024px) {
-        flex-direction: row;
-        justify-content: space-between;
-    }
-
-    text-align: center;
-}
-
 header h1{
-    margin: 0;
-    flex-shrink: 0;
-}
-
-header nav{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 12px;
     text-align: center;
-}
 
-header nav a{
-    color: var(--color-text-nav);
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-}
-
-header nav a:hover{
-    color: var(--color-text-nav-hover);
-}
-
-header nav a::before {
-  content: "";
-  display: inline-block;
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  outline: 2px solid #FFFFFF;
-}
-
-header nav a[href="#calculus"]::before {
-  background-color: var(--subject-calculus);
-}
-
-header nav a[href="#web-dev"]::before {
-  background-color: var(--subject-web-dev);
+    margin: 0;
 }
 
 .content-wrapper{
@@ -166,34 +112,30 @@ header nav a[href="#web-dev"]::before {
     }
 }
 
-
-.subjects-container{
+main {
     display:flex;
     flex-direction: column;
     gap: 36px;
 }
 
-.subject{
+main section {
     padding: 16px;
-
     background-color: var(--color-bg-subject);
     border-radius: 8px;
 }
 
-#calculus{
-    border: 2px solid var(--subject-calculus);
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 20px;
 }
 
-#calculus h2{
-    color: var(--subject-calculus);
-}
-
-#web-dev{
-    border: 2px solid var(--subject-web-dev);
-}
-
-#web-dev h2{
-    color: var(--subject-web-dev);
+#notes-count {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-main);
+    font-weight: 600;
+    margin: 0;
 }
 
 .cards-container{
@@ -216,6 +158,11 @@ header nav a[href="#web-dev"]::before {
     display: grid;
     grid-row: span 3;
     grid-template-rows: subgrid;
+}
+
+.card.exam-soon {
+    border-color: var(--color-exam-soon);
+    border-top: 4px solid var(--color-exam-soon);
 }
 
 aside {
