@@ -29,7 +29,7 @@
     --font-size-sm: 0.875rem;
     --font-size-base: 1rem;
     --font-size-h3: 1.125rem;
-    --font-size-h2: 1.125rem;
+    --font-size-h2: 1.25rem;
     --font-size-h2-desktop: 1.375rem;
     --font-size-h1: 1.75rem;
     --font-size-h1-desktop: 2rem;
@@ -180,16 +180,8 @@ header nav a[href="#web-dev"]::before {
     border-radius: 8px;
 }
 
-#calculus{
-    border: 2px solid var(--subject-calculus);
-}
-
 #calculus h2{
     color: var(--subject-calculus);
-}
-
-#web-dev{
-    border: 2px solid var(--subject-web-dev);
 }
 
 #web-dev h2{
@@ -211,11 +203,19 @@ header nav a[href="#web-dev"]::before {
     padding: 10px;
 
     background-color: var(--color-bg-card);
-    border: 1px solid var(--color-border-card);
+    border-radius: 4px;
 
     display: grid;
     grid-row: span 3;
     grid-template-rows: subgrid;
+}
+
+#calculus .card{
+    border: 2px solid var(--subject-calculus);
+}
+
+#web-dev .card{
+    border: 2px solid var(--subject-web-dev);
 }
 
 aside {
