@@ -39,22 +39,33 @@ function processSubjectsArray(notes){
         if(!notesInSubjects[item.subject]){
             notesInSubjects[item.subject] = {
                 "count": 0,
+                "pages": 0,
                 "examSoon": item.examSoon
             }
         }
+
         notesInSubjects[item.subject].count += 1;
+        notesInSubjects[item.subject].pages += item.pages;
+        if(item.examSoon){
+            notesInSubjects[item.subject].examSoon = item.examSoon
+        }
     }
 
     for(const key in notesInSubjects){
         const value = notesInSubjects[key];
         console.log(`${key}: ${value.count} ${value.examSoon ? "Скоро екзамен!!!" : ""}`);
     }
+    return notesInSubjects;
 }
 
-processSubjectsArray(notes)
+const subjectsArrayResult = processSubjectsArray(notes)
 
 //Рахує кількість сторінок яку треба читати за день щоб встигнути прочитати всі сторінку конспекту до екзамену
 const pagesPerDay = (pages, daysLeft) => Math.ceil(pages / daysLeft);
-const pages = 10;
+let pages = 0;
+for(const key in subjectsArrayResult){
+    pages += subjectsArrayResult[key].pages;
+}
+
 const daysLeft = 3;
 console.log(`Щоб встигнути перечитати конспекти до екзамена потрібно читати ${pagesPerDay(pages, daysLeft)} сторінок на день`)
