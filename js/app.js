@@ -3,69 +3,69 @@ const notes = [
         subject: "Математичний аналіз",
         topic: "Інтеграл. Повторення",
         pages: 2,
-        examSoon: false
+        examSoon: false,
+        id: 0
     },
     {
         subject: "Математичний аналіз",
         topic: "Кратні інтеграли. Частина 1",
         pages: 5,
-        examSoon: false
+        examSoon: false,
+        id: 1
     },
-    {
-        subject: "Математичний аналіз",
-        topic: "Кратні інтеграли. Паттерни розв'язання",
-        pages: 4,
-        examSoon: true
-    },
-    {
-        subject: "Веб-програмування",
-        topic: "Flexbox",
-        pages: 4,
-        examSoon: true
-    },
-    {
-        subject: "Веб-програмування",
-        topic: "Grid та його використання",
-        pages: 3,
-        examSoon: true
-    },
-    {
-        subject: "Веб-програмування",
-        topic: "Адаптивна верстка та Media Queries",
-        pages: 1,
-        examSoon: false
-    }
+    // {
+    //     subject: "Математичний аналіз",
+    //     topic: "Кратні інтеграли. Паттерни розв'язання",
+    //     pages: 4,
+    //     examSoon: true,
+    //     id: 2
+    // },
+    // {
+    //     subject: "Веб-програмування",
+    //     topic: "Flexbox",
+    //     pages: 4,
+    //     examSoon: true,
+    //     id: 3
+    // },
+    // {
+    //     subject: "Веб-програмування",
+    //     topic: "Grid та його використання",
+    //     pages: 3,
+    //     examSoon: true,
+    //     id: 4
+    // },
+    // {
+    //     subject: "Веб-програмування",
+    //     topic: "Адаптивна верстка та Media Queries",
+    //     pages: 1,
+    //     examSoon: false,
+    //     id: 5
+    // }
 ];
-
-const notesListContainer = document.querySelector("#notes-list");
-const notesCounter = document.querySelector("#notes-count");
 
 // Створює DOM-вузол картки конспекту із заголовком, зображенням, назвою предмета та умовним класом exam-soon
 function buildCard(note) {
     const card = document.createElement("article");
-    card.classList.add("card");
+    card.className = `card ${note.examSoon ? "exam-soon" : ""}`;
     card.dataset.subject = note.subject;
+    card.dataset.id = note.id;
 
-    if (note.examSoon) {
-        card.classList.add("exam-soon");
-    }
+    card.innerHTML = `
+        <h3>${note.topic}</h3>
+        <img src="${note.imgSrc || 'https://placehold.co/600x400'}" alt="${note.imgAlt || `Конспект: ${note.topic}`}">
+        <footer>
+            <p>${note.subject}</p>
+            <label>
+                <input type="checkbox" name="examSoon" ${note.examSoon ? "checked" : ""}>
+                Скоро іспит
+            </label>
+        </footer>
+    `;
 
-    const h3 = document.createElement("h3");
-    h3.textContent = note.topic;
-
-    const img = document.createElement("img");
-    img.src = note.imgSrc || "https://placehold.co/600x400";
-    img.alt = note.imgAlt || `Конспект: ${note.topic}`;
-
-    const p = document.createElement("p");
-    p.textContent = note.subject;
-
-    card.append(h3, img, p);
     return card;
 }
-
 // Очищує контейнер і рендерить переданий масив конспектів у DOM, оновлюючи лічильник
-function renderCards(items, container = notesListContainer) {
+function renderCards(items, container) {
     if (!container) return;
 
     container.innerHTML = "";
@@ -93,4 +93,68 @@ const daysLeft = 3;
 console.log(`Щоб встигнути перечитати конспекти до екзамена потрібно читати ${pagesPerDay(pages, daysLeft)} сторінок на день`)
 
 
-renderCards(notes);
+const notesListContainer = document.querySelector("#notes-list");
+const notesCounter = document.querySelector("#notes-count");
+
+renderCards(notes, notesListContainer);
+
+
+// Обробник надсилання форми: валідує вхідні дані, створює новий конспект,
+// оновлює інтерфейс списку та скидає поля форми
+const form = document.querySelector("#note-form");
+form.addEventListener("submit", (event)=>{
+    event.preventDefault();
+    
+    const subjectValue = form.elements.subject.value;
+    const topicValue = form.elements.topic.value.trim();
+    const pagesValue = Number(form.elements.pages.value);
+    const isExamSoon = form.elements.examSoon.checked;
+
+    const newNote = {
+        subject: subjectValue,
+        topic: topicValue,
+        pages: pagesValue,
+        examSoon: isExamSoon,
+        id: Date.now(),
+    };
+
+    notes.push(newNote);
+    renderCards(notes, notesListContainer);
+
+    form.reset();
+})
+
+// Додаткова валідація поля topic: підміна стандартного системного повідомлення
+// браузера на зрозумілу українську підказку при невідповідності патерну
+const topicInput = document.querySelector('#form-topic-input');
+topicInput.addEventListener("input", (event) =>{
+    if(topicInput.validity.patternMismatch){
+        topicInput.setCustomValidity('Тема має містити щонайменше 3 символи');
+    }
+    else{
+        topicInput.setCustomValidity('');
+    }
+})
+
+// Делегування події change на контейнері карток: синхронізує стан
+// властивості examSoon у масиві notes та оновлює стилі підсвітки картки
+notesListContainer.addEventListener('change', (event) => {
+    if (event.target.name !== 'examSoon') {
+        return;
+    }
+
+    const cardElement = event.target.closest('[data-id]');
+    if (!cardElement) {
+        return;
+    }
+
+    const noteId = Number(cardElement.dataset.id);
+
+    const targetNote = notes.find((note) => note.id === noteId);
+    if (!targetNote) {
+        return;
+    }
+
+    targetNote.examSoon = event.target.checked;
+    cardElement.classList.toggle('exam-soon', event.target.checked);
+});
