@@ -1,0 +1,106 @@
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    @media (min-width: 768px) {
+        flex-direction: row;
+        align-items: stretch;
+    }
+}
+
+#note-form,
+.form-info-card {
+    flex: 1;
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border-card);
+    border-radius: 8px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+#note-form {
+    .form-field {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+
+        label {
+            font-size: var(--font-size-sm);
+            font-weight: 600;
+            color: var(--color-text-main);
+        }
+
+        input,
+        select {
+            font-family: inherit;
+            font-size: var(--font-size-base);
+            padding: 10px 12px;
+            border: 1px solid var(--color-border-card);
+            border-radius: 6px;
+            background-color: var(--color-bg-card);
+            color: var(--color-text-main);
+            outline: none;
+            transition: border-color 0.2s;
+
+            &:focus {
+                border-color: var(--color-bg-secondary);
+            }
+        }
+    }
+
+    .form-checkbox {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 4px;
+
+        input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin: 0;
+            cursor: pointer;
+        }
+
+        label {
+            font-size: var(--font-size-sm);
+            font-weight: 500;
+            cursor: pointer;
+        }
+    }
+
+    button[type="submit"] {
+        font-family: inherit;
+        font-size: var(--font-size-base);
+        font-weight: 600;
+        padding: 12px 20px;
+        background-color: var(--color-bg-secondary);
+        color: var(--color-text-secondary);
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        margin-top: 8px;
+        transition: opacity 0.2s;
+
+        &:hover {
+            opacity: 0.9;
+        }
+    }
+}
+
+.form-info-card {
+    justify-content: center;
+
+    h3,
+    p {
+        margin: 0;
+        color: var(--color-text-main);
+    }
+
+    p {
+        font-size: var(--font-size-sm);
+        line-height: var(--line-height-base);
+    }
+}

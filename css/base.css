@@ -1,0 +1,78 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+:root {
+    --color-bg-page: #F8FAFC;
+    --color-bg-subject: #EDF2F7;
+    --color-bg-card: #FFFFFF;
+    --color-bg-secondary: #1E293B;
+
+    --color-text-main: #1E293B;
+    --color-text-secondary: #FFFFFF;
+
+    --color-border-card: #CBD5E1;
+    --color-exam-soon: #EF4444;
+
+    --font-family: sans-serif;
+    --line-height-base: 1.6;
+    --line-height-heading: 1.25;
+
+    --font-size-sm: 0.875rem;
+    --font-size-base: 1rem;
+    --font-size-h3: 1.125rem;
+    --font-size-h2: 1.125rem;
+    --font-size-h2-desktop: 1.375rem;
+    --font-size-h1: 1.75rem;
+    --font-size-h1-desktop: 2rem;
+}
+
+body {
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-base);
+    color: var(--color-text-main);
+    background-color: var(--color-bg-page);
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+}
+
+h1, h2, h3 {
+    line-height: var(--line-height-heading);
+    margin-top: 0;
+}
+
+h1 {
+    font-size: var(--font-size-h1);
+    font-weight: 700;
+
+    @media (min-width: 1024px) {
+        font-size: var(--font-size-h1-desktop);
+    }
+}
+
+h2 {
+    font-size: var(--font-size-h2);
+    font-weight: 700;
+
+    @media (min-width: 1024px) {
+        font-size: var(--font-size-h2-desktop);
+    }
+}
+
+h3 {
+    font-size: var(--font-size-h3);
+    font-weight: 600;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.status-box[hidden] {
+    display: none !important;
+}

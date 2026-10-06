@@ -71,15 +71,27 @@
             </section>
 
             <section>
-                <div class="section-header">
+                <div class="notes-section-header">
                     <h2>Всі конспекти</h2>
-                    <p id="notes-count"></p>
+                    <div class="header-meta">
+                        <p id="notes-count">Всього: — (сторінок: —)</p>
+                        <button type="button" id="refresh-btn" aria-label="Оновити конспекти">&#x21bb;</button>
+                    </div>
                 </div>
-                <div id="notes-list" class="cards-container">
 
-                    <article class="card">
+                <div id="loading-indicator" class="status-box" hidden>
+                    <div class="spinner"></div>
+                    <p>Завантаження конспектів...</p>
+                </div>
+
+                <div id="error-message" class="status-box error-box" hidden>
+                    <p>Конспекти тимчасово недоступні</p>
+                </div>
+                
+                <div id="notes-list" class="cards-container" hidden>
+
+                    <!-- <article class="card">
                         <h3>Тема конспекту</h3>
-                        <img src="https://placehold.co/600x400" alt="Альт зображення">
                         <footer>
                             <p>Предмет</p>
 
@@ -88,7 +100,7 @@
                                 Скоро іспит
                             </label>
                         </footer>
-                    </article>
+                    </article> -->
                 </div>
             </section>
         </main>
