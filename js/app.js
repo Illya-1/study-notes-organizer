@@ -43,118 +43,63 @@ const notes = [
     // }
 ];
 
-// Створює DOM-вузол картки конспекту із заголовком, зображенням, назвою предмета та умовним класом exam-soon
-function buildCard(note) {
-    const card = document.createElement("article");
-    card.className = `card ${note.examSoon ? "exam-soon" : ""}`;
-    card.dataset.subject = note.subject;
-    card.dataset.id = note.id;
+// === REACT ===
 
-    card.innerHTML = `
-        <h3>${note.topic}</h3>
-        <img src="${note.imgSrc || 'https://placehold.co/600x400'}" alt="${note.imgAlt || `Конспект: ${note.topic}`}">
+//Компонент який відповідає за рендер списку карток, а також за логіку зміни елементів в цьому списку
+function App(){
+    const [notesList, setNotesList] = React.useState(notes);
+
+    function togglExamSoon(id){
+        setNotesList(
+            notesList.map(note => 
+                note.id === id ? 
+                {...note, examSoon: !note.examSoon} : 
+                note
+            )
+        )
+    }
+
+    return (
+        <>{
+            notesList.map((note) => (
+                    <NoteSummary
+                        key={note.id}
+                        onToggle={togglExamSoon}
+                        subject={note.subject}
+                        topic={note.topic}
+                        pages={note.pages}
+                        examSoon={note.examSoon}
+                        id={note.id}
+                    />
+                )
+            )
+        }</>
+    );
+}
+
+//Компонент який відповідає за рендер картки
+function NoteSummary({subject, topic, pages, id, examSoon, onToggle}){
+    const altText = `Конспект: ${topic}`
+    const imgSrc = "https://placehold.co/600x400"
+
+    return (
+    <article className={`card ${examSoon ? "exam-soon" : ""}`}>
+        <h3>{topic}</h3>
+        <img src={imgSrc} alt={altText}/>
         <footer>
-            <p>${note.subject}</p>
+            <p>{subject}</p>
             <label>
-                <input type="checkbox" name="examSoon" ${note.examSoon ? "checked" : ""}>
+                <input 
+                    type="checkbox" 
+                    name="examSoon" 
+                    checked={examSoon} 
+                    onChange={() => onToggle(id)}
+                />
                 Скоро іспит
             </label>
         </footer>
-    `;
-
-    return card;
-}
-// Очищує контейнер і рендерить переданий масив конспектів у DOM, оновлюючи лічильник
-function renderCards(items, container) {
-    if (!container) return;
-
-    container.innerHTML = "";
-
-    for (const note of items) {
-        container.append(buildCard(note));
-    }
-
-    updateNotesCounter(items);
+    </article>
+    );
 }
 
-// Обраховує загальну кількість конспектів та сторінок і виводить значення в елемент #notes-count
-function updateNotesCounter(items) {
-    const counter = document.querySelector("#notes-count");
-    if (!counter) return;
-
-    const totalPages = items.reduce((sum, item) => sum + item.pages, 0);
-    counter.textContent = `Всього: ${items.length} (сторінок: ${totalPages})`;
-}
-
-//Рахує кількість сторінок яку треба читати за день щоб встигнути прочитати всі сторінку конспекту до екзамену
-const pagesPerDay = (pages, daysLeft) => Math.ceil(pages / daysLeft);
-const pages = 10;
-const daysLeft = 3;
-console.log(`Щоб встигнути перечитати конспекти до екзамена потрібно читати ${pagesPerDay(pages, daysLeft)} сторінок на день`)
-
-
-const notesListContainer = document.querySelector("#notes-list");
-const notesCounter = document.querySelector("#notes-count");
-
-renderCards(notes, notesListContainer);
-
-
-// Обробник надсилання форми: валідує вхідні дані, створює новий конспект,
-// оновлює інтерфейс списку та скидає поля форми
-const form = document.querySelector("#note-form");
-form.addEventListener("submit", (event)=>{
-    event.preventDefault();
-    
-    const subjectValue = form.elements.subject.value;
-    const topicValue = form.elements.topic.value.trim();
-    const pagesValue = Number(form.elements.pages.value);
-    const isExamSoon = form.elements.examSoon.checked;
-
-    const newNote = {
-        subject: subjectValue,
-        topic: topicValue,
-        pages: pagesValue,
-        examSoon: isExamSoon,
-        id: Date.now(),
-    };
-
-    notes.push(newNote);
-    renderCards(notes, notesListContainer);
-
-    form.reset();
-})
-
-// Додаткова валідація поля topic: підміна стандартного системного повідомлення
-// браузера на зрозумілу українську підказку при невідповідності патерну
-const topicInput = document.querySelector('#form-topic-input');
-topicInput.addEventListener("input", (event) =>{
-    if(topicInput.validity.patternMismatch){
-        topicInput.setCustomValidity('Тема має містити щонайменше 3 символи');
-    }
-    else{
-        topicInput.setCustomValidity('');
-    }
-})
-
-// Делегування події change на контейнері карток: синхронізує стан
-// властивості examSoon у масиві notes та оновлює стилі підсвітки картки
-notesListContainer.addEventListener('change', (event) => {
-    if (event.target.name !== 'examSoon') {
-        return;
-    }
-
-    const cardElement = event.target.closest('[data-id]');
-    if (!cardElement) {
-        return;
-    }
-
-    const noteId = Number(cardElement.dataset.id);
-
-    const targetNote = notes.find((note) => note.id === noteId);
-    if (!targetNote) {
-        return;
-    }
-
-    targetNote.examSoon = event.target.checked;
-    cardElement.classList.toggle('exam-soon', event.target.checked);
-});
+ReactDOM.createRoot(document.getElementById("notes-list")).render(<App />);
