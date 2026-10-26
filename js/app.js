@@ -3,45 +3,54 @@ const notes = [
         subject: "Математичний аналіз",
         topic: "Інтеграл. Повторення",
         pages: 2,
-        examSoon: false,
+        learned: false,
         id: 0
     },
     {
         subject: "Математичний аналіз",
         topic: "Кратні інтеграли. Частина 1",
         pages: 5,
-        examSoon: false,
+        learned: false,
         id: 1
-    },
-    // {
-    //     subject: "Математичний аналіз",
-    //     topic: "Кратні інтеграли. Паттерни розв'язання",
-    //     pages: 4,
-    //     examSoon: true,
-    //     id: 2
-    // },
-    // {
-    //     subject: "Веб-програмування",
-    //     topic: "Flexbox",
-    //     pages: 4,
-    //     examSoon: true,
-    //     id: 3
-    // },
-    // {
-    //     subject: "Веб-програмування",
-    //     topic: "Grid та його використання",
-    //     pages: 3,
-    //     examSoon: true,
-    //     id: 4
-    // },
-    // {
-    //     subject: "Веб-програмування",
-    //     topic: "Адаптивна верстка та Media Queries",
-    //     pages: 1,
-    //     examSoon: false,
-    //     id: 5
-    // }
+    }
 ];
+
+// === FORM ===
+
+const form = document.querySelector("#note-form");
+form.addEventListener("submit", (event)=>{
+    event.preventDefault();
+    
+    const subjectValue = form.elements.subject.value;
+    const topicValue = form.elements.topic.value.trim();
+    const pagesValue = Number(form.elements.pages.value);
+    const isLearned = form.elements.learned.checked;
+
+    const newNote = {
+        subject: subjectValue,
+        topic: topicValue,
+        pages: pagesValue,
+        learned: isLearned,
+        id: Date.now(),
+    };
+
+    window.addNoteToReact(newNote);
+    form.reset();
+})
+
+// === FORM ===
+
+// Додаткова валідація поля topic: підміна стандартного системного повідомлення
+// браузера на зрозумілу українську підказку при невідповідності патерну
+const topicInput = document.querySelector('#form-topic-input');
+topicInput.addEventListener("input", (event) =>{
+    if(topicInput.validity.patternMismatch){
+        topicInput.setCustomValidity('Тема має містити щонайменше 3 символи');
+    }
+    else{
+        topicInput.setCustomValidity('');
+    }
+})
 
 // === REACT ===
 
@@ -49,11 +58,15 @@ const notes = [
 function App(){
     const [notesList, setNotesList] = React.useState(notes);
 
-    function togglExamSoon(id){
+    window.addNoteToReact = (newNote) => {
+        setNotesList((prevNotes) => [...prevNotes, newNote]);
+    };
+
+    function togglLearned(id){
         setNotesList(
             notesList.map(note => 
                 note.id === id ? 
-                {...note, examSoon: !note.examSoon} : 
+                {...note, learned: !note.learned} : 
                 note
             )
         )
@@ -64,11 +77,11 @@ function App(){
             notesList.map((note) => (
                     <NoteSummary
                         key={note.id}
-                        onToggle={togglExamSoon}
+                        onToggle={togglLearned}
                         subject={note.subject}
                         topic={note.topic}
                         pages={note.pages}
-                        examSoon={note.examSoon}
+                        learned={note.learned}
                         id={note.id}
                     />
                 )
@@ -78,12 +91,12 @@ function App(){
 }
 
 //Компонент який відповідає за рендер картки
-function NoteSummary({subject, topic, pages, id, examSoon, onToggle}){
+function NoteSummary({subject, topic, pages, id, learned, onToggle}){
     const altText = `Конспект: ${topic}`
     const imgSrc = "https://placehold.co/600x400"
 
     return (
-    <article className={`card ${examSoon ? "exam-soon" : ""}`}>
+    <article className={`card ${learned ? "learned" : ""}`}>
         <h3>{topic}</h3>
         <img src={imgSrc} alt={altText}/>
         <footer>
@@ -91,11 +104,11 @@ function NoteSummary({subject, topic, pages, id, examSoon, onToggle}){
             <label>
                 <input 
                     type="checkbox" 
-                    name="examSoon" 
-                    checked={examSoon} 
+                    name="learned" 
+                    checked={learned} 
                     onChange={() => onToggle(id)}
                 />
-                Скоро іспит
+                Вивчено
             </label>
         </footer>
     </article>
