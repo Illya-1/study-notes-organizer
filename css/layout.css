@@ -4,7 +4,7 @@
     padding: 0 16px;
 }
 
-header {
+.page-header {
     background-color: var(--color-bg-secondary);
     color: var(--color-text-secondary);
     padding: 24px 0;

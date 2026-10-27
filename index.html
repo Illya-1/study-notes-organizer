@@ -8,7 +8,7 @@
     <script src="js/app.js" defer></script>
 </head>
 <body>
-    <header>
+    <header class="page-header">
         <div class="container header-container">
             <h1>«Органайзер конспектів»</h1>
         </div>
@@ -34,7 +34,7 @@
                             <input 
                                 type="text" 
                                 id="form-topic-input" 
-                                name="topic" 
+                                name="title" 
                                 required 
                                 pattern=".{3,}" 
                                 placeholder="Мінімум 3 символи"
@@ -51,6 +51,17 @@
                                 min="1" 
                                 value="1"
                             >
+                        </div>
+
+                        <div class="form-field">
+                            <label for="form-text-input">Короткий зміст (текст):</label>
+                            <textarea 
+                                id="form-text-input" 
+                                name="text" 
+                                rows="3" 
+                                placeholder="Основні тези або опис конспекту..."
+                                required
+                            ></textarea>
                         </div>
 
                         <div class="form-checkbox">
@@ -73,6 +84,13 @@
             <section>
                 <div class="notes-section-header">
                     <h2>Всі конспекти</h2>
+                    <div class="filter-wrapper">
+                        <select id="subject-filter" aria-label="Фільтр за предметом">
+                            <option value="all">Усі предмети</option>
+                            <option value="Математичний аналіз">Математичний аналіз</option>
+                            <option value="Веб-програмування">Веб-програмування</option>
+                        </select>
+                    </div>
                     <div class="header-meta">
                         <p id="notes-count">Всього: — (сторінок: —)</p>
                         <button type="button" id="refresh-btn" aria-label="Оновити конспекти">&#x21bb;</button>
@@ -89,18 +107,7 @@
                 </div>
                 
                 <div id="notes-list" class="cards-container" hidden>
-
-                    <!-- <article class="card">
-                        <h3>Тема конспекту</h3>
-                        <footer>
-                            <p>Предмет</p>
-
-                            <label>
-                                <input type="checkbox" checked>
-                                Скоро іспит
-                            </label>
-                        </footer>
-                    </article> -->
+                    <!-- Тут знаходяться картки конспектів -->
                 </div>
             </section>
         </main>

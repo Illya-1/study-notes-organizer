@@ -2,7 +2,28 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;            
+    gap: 16px;
+    margin-bottom: 20px;  
+    
+    .filter-wrapper {
+        select {
+            padding: 6px 12px;
+            font-size: var(--font-size-sm);
+            font-family: inherit;
+            color: var(--color-text-main);
+            background-color: var(--color-bg-card);
+            border: 1px solid var(--color-border-card);
+            border-radius: 6px;
+            cursor: pointer;
+            outline: none;
+            transition: border-color 0.2s;
+
+            &:focus {
+                border-color: var(--color-bg-secondary);
+            }
+        }
+    }
+
     .header-meta {
         display: flex;
         align-items: center;
@@ -56,17 +77,97 @@
 }
 
 .card {
-    padding: 10px;
+    padding: 16px;
     background-color: var(--color-bg-card);
     border: 1px solid var(--color-border-card);
+    border-radius: 2px;
     display: grid;
     grid-row: span 3;
     grid-template-rows: subgrid;
     min-width: 0;
+    gap: 12px;
 
     &.exam-soon {
         border-color: var(--color-exam-soon);
         border-top: 4px solid var(--color-exam-soon);
+    }
+
+    header {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+        min-width: 0;
+
+        h3 {
+            margin: 0;
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-heading);
+            color: var(--color-text-main);
+            word-break: break-word;
+        }
+
+        .badge-subject {
+            display: inline-block;
+            padding: 2px 8px;
+            background-color: var(--color-bg-subject);
+            color: var(--color-text-main);
+            border-radius: 4px;
+            font-size: var(--font-size-sm);
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+        }
+
+        .card-header-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 8px;
+        width: 100%;
+
+        h3 {
+            margin: 0;
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-heading);
+            color: var(--color-text-main);
+            word-break: break-word;
+        }
+
+        .btn-delete {
+            background: transparent;
+            border: none;
+            padding: 4px;
+            cursor: pointer;
+            color: var(--color-border-card);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: color 0.2s, background-color 0.2s;
+            flex-shrink: 0;
+
+            &:hover {
+                color: var(--color-exam-soon);
+                background-color: rgba(239, 68, 68, 0.1);
+            }
+        }
+    }
+    }
+
+    .card-text {
+        margin: 0;
+        font-size: var(--font-size-sm);
+        color: var(--color-text-main);
+        line-height: var(--line-height-base);
+        word-break: break-word;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
 
     footer {
@@ -77,15 +178,11 @@
         min-width: 0;
         width: 100%;
 
-        p {
-            margin: 0;
-            color: var(--color-text-main);
+        time {
             font-size: var(--font-size-sm);
-
+            color: var(--color-text-main);
+            opacity: 0.7;
             white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            min-width: 0;
         }
 
         label {
@@ -95,7 +192,7 @@
             cursor: pointer;
             user-select: none;
             font-size: var(--font-size-sm);
-
+            color: var(--color-text-main);*/
             flex-shrink: 0;
         }
 
