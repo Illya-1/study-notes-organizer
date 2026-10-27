@@ -1,4 +1,6 @@
 @import "base.css";
 @import "layout.css";
-@import "notes-section.css";
+@import "notes-section-header.css";
+@import "notes-section-screens.css";
+@import "cards.css";
 @import "form-section.css";

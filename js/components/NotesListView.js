@@ -14,6 +14,7 @@ export class NotesListView {
         this._renderedItems = [];
 
         this._beforeRenderHook = (items) => items;
+        this.onDisplayStateChanged = null; // Хук/коллбек стану відображення
 
         this._initCardEvents();
     }
@@ -28,6 +29,29 @@ export class NotesListView {
         }
     }
 
+    JavaScript
+    /**
+     * Розраховує поточні метрики прогресу та агрегати виключно для відображених карток
+     * @returns {{total: number, learned: number, pages: number, percent: number}}
+     */
+    getDisplayState() {
+        const total = this._renderedItems.length;
+        const learned = this._renderedItems.filter(item => Boolean(item.isLearned || item.learned)).length;
+        const pages = this._renderedItems.reduce((sum, item) => sum + (Number(item.pages) || 0), 0);
+        const percent = total > 0 ? Math.round((learned / total) * 100) : 0;
+
+        return { total, learned, pages, percent };
+    }
+
+    /**
+     * Сповіщає зовнішніх слухачів про зміну агрегованих даних відображення
+     */
+    _notifyStateChanged() {
+        if (typeof this.onDisplayStateChanged === "function") {
+            this.onDisplayStateChanged(this.getDisplayState());
+        }
+    }
+
     /**
      * Зчитує актуальні дані з БД, пропускає через хук та виконує рендеринг у DOM
      */
@@ -35,36 +59,21 @@ export class NotesListView {
         this._rawItems = await this.db.getAllItems();
         this._renderedItems = this._beforeRenderHook([...this._rawItems]);
         this._renderCards(this._renderedItems);
+        this._notifyStateChanged();
     }
 
-    /**
-     * Повертає кількість конспектів, відображених на екрані
-     * @returns {number}
-     */
     getDisplayedCount() {
         return this._renderedItems.length;
     }
 
-    /**
-     * Повертає сумарну кількість сторінок для конспектів на екрані
-     * @returns {number}
-     */
     getDisplayedPagesCount() {
         return this._renderedItems.reduce((sum, item) => sum + (item.pages || 0), 0);
     }
 
-    /**
-     * Повертає загальну кількість усіх записів у базі
-     * @returns {number}
-     */
     getTotalCount() {
         return this._rawItems.length;
     }
 
-    /**
-     * Повертає кількість опрацьованих тем серед усіх записів
-     * @returns {number}
-     */
     getLearnedCount() {
         return this._rawItems.filter(item => item.learned || item.isLearned).length;
     }
@@ -93,14 +102,17 @@ export class NotesListView {
 
             const noteId = Number(card.dataset.id);
             const isChecked = event.target.checked;
-            
+
             card.classList.toggle("learned", isChecked);
 
             const targetNote = this._rawItems.find(n => n.id === noteId);
             if (!targetNote) return;
-            
+
             targetNote.isLearned = isChecked;
             await this.db.addItem(targetNote);
+
+            // МИТТЄВО повідомляємо тулбар про зміну без важкого рендеру всього DOM
+            this._notifyStateChanged();
         });
     }
 
@@ -149,7 +161,7 @@ export class NotesListView {
             <footer>
                 <time datetime="${note.date}">${note.date}</time>
                 <label>
-                    <input type="checkbox" name="learned" ${isLearned ? "checked" : ""}>
+                    <input type="checkbox" name="isLearned" ${isLearned ? "checked" : ""}>
                     Вивчено
                 </label>
             </footer>

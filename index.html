@@ -82,20 +82,30 @@
             </section>
 
             <section>
-                <div class="notes-section-header">
-                    <h2>Всі конспекти</h2>
-                    <div class="filter-wrapper">
-                        <select id="subject-filter" aria-label="Фільтр за предметом">
-                            <option value="all">Усі предмети</option>
-                            <option value="Математичний аналіз">Математичний аналіз</option>
-                            <option value="Веб-програмування">Веб-програмування</option>
-                        </select>
+                <header class="notes-section-header">
+                    <div class="header-main-row">
+                        <h2>Всі конспекти</h2>
+
+                        <div class="header-controls">
+                            <div class="controls-status">
+                                <p id="notes-count">Всього: — (сторінок: —)</p>
+                                <button type="button" id="refresh-btn" aria-label="Оновити конспекти">&#x21bb;</button>
+                            </div>
+
+                            <div class="filter-wrapper">
+                                <select id="subject-filter" aria-label="Фільтр за предметом">
+                                    <option value="all">Усі предмети</option>
+                                    <option value="Математичний аналіз">Математичний аналіз</option>
+                                    <option value="Веб-програмування">Веб-програмування</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
-                    <div class="header-meta">
-                        <p id="notes-count">Всього: — (сторінок: —)</p>
-                        <button type="button" id="refresh-btn" aria-label="Оновити конспекти">&#x21bb;</button>
+
+                    <div class="progress-track" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                        <div id="progress-fill" class="progress-fill"></div>
                     </div>
-                </div>
+                </header>
 
                 <div id="loading-indicator" class="status-box" hidden>
                     <div class="spinner"></div>
