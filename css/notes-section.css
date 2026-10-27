@@ -3,37 +3,37 @@
     justify-content: space-between;
     align-items: center;
     gap: 16px;
-    margin-bottom: 20px;  
-    
-    .filter-wrapper {
-        select {
-            padding: 6px 12px;
-            font-size: var(--font-size-sm);
-            font-family: inherit;
-            color: var(--color-text-main);
-            background-color: var(--color-bg-card);
-            border: 1px solid var(--color-border-card);
-            border-radius: 6px;
-            cursor: pointer;
-            outline: none;
-            transition: border-color 0.2s;
+    margin-bottom: 20px;
 
-            &:focus {
-                border-color: var(--color-bg-secondary);
-            }
+    .filter-wrapper select {
+        padding: 6px 12px;
+        font-size: var(--font-size-sm);
+        font-family: inherit;
+        color: var(--color-text-main);
+        background-color: var(--color-bg-card);
+        border: 1px solid var(--color-border-card);
+        border-radius: 6px;
+        cursor: pointer;
+        outline: none;
+        transition: border-color 0.2s;
+
+        &:focus {
+            border-color: var(--color-bg-secondary);
         }
     }
 
     .header-meta {
         display: flex;
         align-items: center;
-        gap: 12px;          
+        gap: 12px;
+
         #notes-count {
             font-size: var(--font-size-sm);
             color: var(--color-text-main);
             font-weight: 600;
             margin: 0;
-        }           
+        }
+
         button {
             display: flex;
             align-items: center;
@@ -48,7 +48,8 @@
             font-size: 16px;
             line-height: 1;
             cursor: pointer;
-            transition: background-color 0.2s, border-color 0.2s;           
+            transition: background-color 0.2s, border-color 0.2s;
+
             &:hover {
                 background-color: var(--color-border-card);
                 border-color: var(--color-bg-secondary);
@@ -80,7 +81,7 @@
     padding: 16px;
     background-color: var(--color-bg-card);
     border: 1px solid var(--color-border-card);
-    border-radius: 2px;
+    border-radius: 6px;
     display: grid;
     grid-row: span 3;
     grid-template-rows: subgrid;
@@ -92,6 +93,11 @@
         border-top: 4px solid var(--color-exam-soon);
     }
 
+    &.learned {
+        border-color: var(--color-learned);
+        border-top: 4px solid var(--color-learned);
+    }
+
     header {
         display: flex;
         flex-direction: column;
@@ -99,12 +105,39 @@
         gap: 6px;
         min-width: 0;
 
-        h3 {
-            margin: 0;
-            font-size: var(--font-size-base);
-            line-height: var(--line-height-heading);
-            color: var(--color-text-main);
-            word-break: break-word;
+        .card-header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 8px;
+            width: 100%;
+
+            h3 {
+                margin: 0;
+                font-size: var(--font-size-base);
+                line-height: var(--line-height-heading);
+                color: var(--color-text-main);
+                word-break: break-word;
+            }
+
+            .btn-delete {
+                background: transparent;
+                border: none;
+                padding: 4px;
+                cursor: pointer;
+                color: var(--color-border-card);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 4px;
+                transition: color 0.2s, background-color 0.2s;
+                flex-shrink: 0;
+
+                &:hover {
+                    color: var(--color-exam-soon);
+                    background-color: rgba(239, 68, 68, 0.1);
+                }
+            }
         }
 
         .badge-subject {
@@ -120,41 +153,6 @@
             text-overflow: ellipsis;
             max-width: 100%;
         }
-
-        .card-header-top {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        gap: 8px;
-        width: 100%;
-
-        h3 {
-            margin: 0;
-            font-size: var(--font-size-base);
-            line-height: var(--line-height-heading);
-            color: var(--color-text-main);
-            word-break: break-word;
-        }
-
-        .btn-delete {
-            background: transparent;
-            border: none;
-            padding: 4px;
-            cursor: pointer;
-            color: var(--color-border-card);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 4px;
-            transition: color 0.2s, background-color 0.2s;
-            flex-shrink: 0;
-
-            &:hover {
-                color: var(--color-exam-soon);
-                background-color: rgba(239, 68, 68, 0.1);
-            }
-        }
-    }
     }
 
     .card-text {
@@ -192,7 +190,7 @@
             cursor: pointer;
             user-select: none;
             font-size: var(--font-size-sm);
-            color: var(--color-text-main);*/
+            color: var(--color-text-main);
             flex-shrink: 0;
         }
 
@@ -205,7 +203,6 @@
         }
     }
 }
-
 
 .status-box {
     display: flex;
