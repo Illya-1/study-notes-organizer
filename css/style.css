@@ -2,5 +2,6 @@
 @import "layout.css";
 @import "notes-section-header.css";
 @import "notes-section-screens.css";
-@import "cards.css";
+@import "card.css";
 @import "form-section.css";
+@import "note-details-view.css";

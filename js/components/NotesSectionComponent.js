@@ -1,29 +1,76 @@
 ﻿import { NotesListView } from './NotesListView.js';
 
 export class NotesSectionComponent {
-    constructor(db, root = document) {
+    /**
+     * @param {HTMLElement} parentContainer
+     * @param {NotesDB} db
+     * @param {Function|null} onFilterChange
+     */
+    constructor(parentContainer, db, onFilterChange = null) {
+        this.parentContainer = parentContainer;
         this.db = db;
-        this.root = root;
+        this.onFilterChange = onFilterChange;
 
-        this.contentContainer = this.root.querySelector("#notes-list");
-        this.loadingIndicator = this.root.querySelector("#loading-indicator");
-        this.errorContainer = this.root.querySelector("#error-message");
-        this.errorMessage = this.errorContainer ? this.errorContainer.querySelector("p") : null;
+        this._renderLayout();
 
-        this.counter = this.root.querySelector("#notes-count");
-        this.filterSelect = this.root.querySelector("#subject-filter");
-        this.refreshBtn = this.root.querySelector("#refresh-btn");
-        this.progressFill = this.root.querySelector("#progress-fill");
+        this.contentContainer = this.section.querySelector("#notes-list");
+        this.loadingIndicator = this.section.querySelector("#loading-indicator");
+        this.errorContainer = this.section.querySelector("#error-message");
+        this.errorMessage = this.section.querySelector("#error-message p");
+
+        this.counter = this.section.querySelector("#notes-count");
+        this.filterSelect = this.section.querySelector("#subject-filter");
+        this.refreshBtn = this.section.querySelector("#refresh-btn");
+        this.progressFill = this.section.querySelector("#progress-fill");
+        this.progressTrack = this.section.querySelector('[role="progressbar"]');
 
         this.listView = new NotesListView(this.contentContainer, this.db);
-
-        // Підписуємося на єдину подію зміни стану відображення
         this.listView.onDisplayStateChanged = (state) => {
             this.updateToolbar(state);
-        };
+        }
 
         this._setupFilterHook();
         this._initSectionEvents();
+    }
+
+    _renderLayout() {
+        this.section = document.createElement("section");
+        this.section.innerHTML = `
+            <header class="notes-section-header">
+                <div class="header-main-row">
+                    <h2>Всі конспекти</h2>
+                    <div class="header-controls">
+                        <div class="controls-status">
+                            <p id="notes-count">Всього: — (сторінок: —)</p>
+                            <button type="button" id="refresh-btn" aria-label="Оновити конспекти">&#x21bb;</button>
+                        </div>
+                        <div class="filter-wrapper">
+                            <select id="subject-filter" aria-label="Фільтр за предметом">
+                                <option value="all">Усі предмети</option>
+                                <option value="Математичний аналіз">Математичний аналіз</option>
+                                <option value="Веб-програмування">Веб-програмування</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="progress-track" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                    <div id="progress-fill" class="progress-fill"></div>
+                </div>
+            </header>
+
+            <div id="loading-indicator" class="status-box" hidden>
+                <div class="spinner"></div>
+                <p>Завантаження конспектів...</p>
+            </div>
+
+            <div id="error-message" class="status-box error-box" hidden>
+                <p>Конспекти тимчасово недоступні</p>
+            </div>
+            
+            <div id="notes-list" class="cards-container" hidden></div>
+        `;
+        this.parentContainer.append(this.section);
     }
 
     async init() {
@@ -35,78 +82,63 @@ export class NotesSectionComponent {
         await this.listView.render();
     }
 
+    setFilter(subject) {
+        this.filterSelect.value = subject || "all";
+    }
+
     showLoading() {
-        if (this.contentContainer) this.contentContainer.hidden = true;
-        if (this.errorContainer) this.errorContainer.hidden = true;
-        if (this.loadingIndicator) this.loadingIndicator.hidden = false;
-        if (this.counter) this.counter.textContent = "Всього: — (сторінок: —)";
+        this.contentContainer.hidden = true;
+        this.errorContainer.hidden = true;
+        this.loadingIndicator.hidden = false;
+        this.counter.textContent = "Всього: — (сторінок: —)";
     }
 
     showError(message = "На жаль, сталася помилка під час завантаження контенту!") {
-        if (this.contentContainer) this.contentContainer.hidden = true;
-        if (this.loadingIndicator) this.loadingIndicator.hidden = true;
-        if (this.errorContainer) this.errorContainer.hidden = false;
-        if (this.errorMessage) this.errorMessage.textContent = message;
+        this.contentContainer.hidden = true;
+        this.loadingIndicator.hidden = true;
+        this.errorContainer.hidden = false;
+        this.errorMessage.textContent = message;
     }
 
     showContent() {
-        if (this.loadingIndicator) this.loadingIndicator.hidden = true;
-        if (this.errorContainer) this.errorContainer.hidden = true;
-        if (this.contentContainer) this.contentContainer.hidden = false;
+        this.loadingIndicator.hidden = true;
+        this.errorContainer.hidden = true;
+        this.contentContainer.hidden = false;
     }
 
-    resetFilter() {
-        if (this.filterSelect) {
-            this.filterSelect.value = "all";
-        }
-    }
-
-    /**
-     * Оновлює лічильники та анімує прогрес-бар (через CSS transition ширини) згідно з наданим станом
-     * @param {{total: number, learned: number, pages: number, percent: number}} [state]
-     */
     updateToolbar(state) {
-        const currentState = state || this.listView.getDisplayState();
+        const current = state || this.listView.getDisplayState();
 
-        if (this.counter) {
-            this.counter.textContent = `Всього: ${currentState.total} (вивчено: ${currentState.learned}, стор: ${currentState.pages})`;
-        }
-
-        if (this.progressFill) {
-            this.progressFill.style.width = `${currentState.percent}%`;
-
-            const track = this.progressFill.closest('[role="progressbar"]');
-            if (track) {
-                track.setAttribute("aria-valuenow", String(currentState.percent));
-            }
-        }
+        this.counter.textContent = `Всього: ${current.total} (вивчено: ${current.learned}, стор: ${current.pages})`;
+        this.progressFill.style.width = `${current.percent}%`;
+        this.progressTrack.setAttribute("aria-valuenow", String(current.percent));
     }
 
     _setupFilterHook() {
         this.listView.setBeforeRender((items) => {
-            const selected = this.filterSelect ? this.filterSelect.value : "all";
+            const selected = this.filterSelect.value;
             return selected === "all" ? items : items.filter((note) => note.subject === selected);
         });
     }
 
     _initSectionEvents() {
-        if (this.filterSelect) {
-            this.filterSelect.addEventListener("change", async () => {
+        this.filterSelect.addEventListener("change", async () => {
+            if (this.onFilterChange) {
+                this.onFilterChange(this.filterSelect.value);
+            } else {
                 await this.refresh();
-            });
-        }
+            }
+        });
 
-        if (this.refreshBtn) {
-            this.refreshBtn.addEventListener("click", async () => {
-                try {
-                    this.showLoading();
-                    await this.refresh();
-                    this.showContent();
-                } catch (error) {
-                    this.showError("Не вдалося оновити конспекти!");
-                    console.log(error);
-                }
-            });
-        }
+        this.refreshBtn.addEventListener("click", async () => {
+            try {
+                this.showLoading();
+                await this.refresh();
+                this.showContent();
+            } catch (error) {
+                this.showError("Не вдалося оновити конспекти!");
+                console.error(error);
+            }
+        });
     }
 }

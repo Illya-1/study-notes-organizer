@@ -1,0 +1,114 @@
+﻿.note-details-card {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border-card);
+    border-radius: 6px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.note-details-card.card-learned {
+    border-color: var(--color-learned);
+    border-top: 4px solid var(--color-learned);
+}
+
+.note-details-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    border-bottom: 1px solid var(--color-border-card);
+    padding-bottom: 16px;
+}
+
+.note-details-tags {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.note-subject-badge {
+    background-color: var(--color-bg-subject);
+    color: var(--color-text-main);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+}
+
+.note-status-badge {
+    font-size: var(--font-size-sm);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+.note-status-badge.status-learned {
+    background-color: rgba(99, 102, 241, 0.12);
+    color: var(--color-learned);
+}
+
+.note-status-badge.status-pending {
+    background-color: var(--color-bg-subject);
+    color: var(--color-text-main);
+    opacity: 0.85;
+}
+
+.note-date {
+    color: var(--color-text-main);
+    opacity: 0.7;
+    font-size: var(--font-size-sm);
+}
+
+.note-details-title {
+    font-size: var(--font-size-h1);
+    line-height: var(--line-height-heading);
+    color: var(--color-text-main);
+    margin: 0;
+    word-break: break-word;
+}
+
+.note-details-body {
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-base);
+    color: var(--color-text-main);
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.note-details-body p {
+    margin: 0;
+}
+
+.note-details-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--color-border-card);
+    padding-top: 16px;
+}
+
+.note-pages-count {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-main);
+    opacity: 0.8;
+}
+
+.note-details-footer .btn-back {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 16px;
+    background-color: var(--color-bg-secondary);
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: opacity 0.2s;
+}
+
+.note-details-footer .btn-back:hover {
+    opacity: 0.9;
+}

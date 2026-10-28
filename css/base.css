@@ -15,7 +15,7 @@
     --color-exam-soon: #EF4444;
     --color-learned: #6366f1;
 
-    --font-family: sans-serif;
+    --font-family: system-ui, -apple-system, sans-serif;
     --line-height-base: 1.6;
     --line-height-heading: 1.25;
 
@@ -29,16 +29,13 @@
 }
 
 body {
-    font-family: var(--font-family);
+    font-family: var(--font-family), sans-serif;
     font-weight: 400;
     font-size: var(--font-size-base);
     line-height: var(--line-height-base);
     color: var(--color-text-main);
     background-color: var(--color-bg-page);
     margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 60px;
 }
 
 h1, h2, h3 {

@@ -146,7 +146,9 @@ export class NotesListView {
         card.innerHTML = `
             <header>
                 <div class="card-header-top">
-                    <h3>${note.title}</h3>
+                    <h3>
+                        <a href="/notes/${note.id}" data-link="">${note.title}</a>
+                    </h3>
                     <button type="button" class="btn-delete" title="Видалити конспект" aria-label="Видалити конспект">
                         <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
                             <path d="M19 4h-3.5l-1-1h-5l-1 1H5v2h14M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12z"/>

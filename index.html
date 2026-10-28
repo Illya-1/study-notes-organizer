@@ -14,128 +14,18 @@
         </div>
     </header>
 
-    <div class="container content-wrapper">
-        <main>
-            <section class="form-section">
-                <h2>Додати новий конспект</h2>
-                <div class="form-container">
-                    <form id="note-form">
-                        <div class="form-field">
-                            <label for="form-subject-select">Предмет:</label>
-                            <select name="subject" id="form-subject-select" required>
-                                <option value="" disabled selected hidden>Оберіть предмет</option>
-                                <option value="Математичний аналіз">Математичний аналіз</option>
-                                <option value="Веб-програмування">Веб-програмування</option>
-                            </select>
-                        </div>
-
-                        <div class="form-field">
-                            <label for="form-topic-input">Тема конспекту:</label>
-                            <input 
-                                type="text" 
-                                id="form-topic-input" 
-                                name="title" 
-                                required 
-                                pattern=".{3,}" 
-                                placeholder="Мінімум 3 символи"
-                            >
-                        </div>
-
-                        <div class="form-field">
-                            <label for="form-pages-input">Кількість сторінок:</label>
-                            <input 
-                                type="number" 
-                                id="form-pages-input" 
-                                name="pages" 
-                                required 
-                                min="1" 
-                                value="1"
-                            >
-                        </div>
-
-                        <div class="form-field">
-                            <label for="form-text-input">Короткий зміст (текст):</label>
-                            <textarea 
-                                id="form-text-input" 
-                                name="text" 
-                                rows="3" 
-                                placeholder="Основні тези або опис конспекту..."
-                                required
-                            ></textarea>
-                        </div>
-
-                        <div class="form-checkbox">
-                            <input type="checkbox" id="note-exam-soon" name="learned">
-                            <label for="note-exam-soon">Вивчено</label>
-                        </div>
-
-                        <button type="submit">Додати конспект</button>
-                    </form>
-
-                    <div class="form-info-card">
-                        <h3>Пам'ятка студента</h3>
-                        <p>Вказуйте точну тему та кількість сторінок конспекту для коректного обрахунку щоденного навантаження.</p>
-                        <p>Прапорець <strong>«Скоро екзамен»</strong> автоматично підсвітить конспект у списку червоною рамкою для швидкого доступу під час сесії.</p>
-                    </div>
-                </div>
-                
-            </section>
-
-            <section>
-                <header class="notes-section-header">
-                    <div class="header-main-row">
-                        <h2>Всі конспекти</h2>
-
-                        <div class="header-controls">
-                            <div class="controls-status">
-                                <p id="notes-count">Всього: — (сторінок: —)</p>
-                                <button type="button" id="refresh-btn" aria-label="Оновити конспекти">&#x21bb;</button>
-                            </div>
-
-                            <div class="filter-wrapper">
-                                <select id="subject-filter" aria-label="Фільтр за предметом">
-                                    <option value="all">Усі предмети</option>
-                                    <option value="Математичний аналіз">Математичний аналіз</option>
-                                    <option value="Веб-програмування">Веб-програмування</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="progress-track" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-                        <div id="progress-fill" class="progress-fill"></div>
-                    </div>
-                </header>
-
-                <div id="loading-indicator" class="status-box" hidden>
-                    <div class="spinner"></div>
-                    <p>Завантаження конспектів...</p>
-                </div>
-
-                <div id="error-message" class="status-box error-box" hidden>
-                    <p>Конспекти тимчасово недоступні</p>
-                </div>
-                
-                <div id="notes-list" class="cards-container" hidden>
-                    <!-- Тут знаходяться картки конспектів -->
-                </div>
-            </section>
+    <div class="container">
+        <main id="app">
+            <!--Page content-->
         </main>
-
-        <aside>
-            <h2>Перегляд обраного конспекту</h2>
-            <article>
-                <h3>Grid та його використання</h3>
-                <p><strong>Предмет:</strong> Веб-програмування</p>
-                <p>CSS Grid Layout — це двовимірна система сіток...</p>
-            </article>
-        </aside>
     </div>
     
 
     <footer class="page-footer">
         <p>
+            <a href="/unknown-page" data-link>
             Навчальний проєкт для курсу «Програмування веб-застосувань» &copy; 2026
+            </a>
         </p>
     </footer>
 </body>

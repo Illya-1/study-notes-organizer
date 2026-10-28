@@ -39,6 +39,14 @@
                 line-height: var(--line-height-heading);
                 color: var(--color-text-main);
                 word-break: break-word;
+                a{
+                    color: inherit;
+                    text-decoration: none;
+                    
+                    &:hover{
+                        text-shadow: 0 0 0.65px currentColor;
+                    }
+                }
             }
 
             .btn-delete {

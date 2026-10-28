@@ -62,6 +62,17 @@
         });
     }
 
+    async getItem(id) {
+        const db = await this.getDatabase();
+        return new Promise((resolve, reject) => {
+            const transaction = db.transaction([this.storeName], 'readonly');
+            const store = transaction.objectStore(this.storeName);
+            const request = store.get(id);
+            request.onsuccess = () => resolve(request.result);
+            request.onerror = () => reject(request.error);
+        });
+    }
+
     async deleteItem(id) {
         const db = await this.getDatabase();
         return new Promise((resolve, reject) => {
