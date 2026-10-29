@@ -1,4 +1,6 @@
-﻿/**
+﻿import {escapeHtml} from "../util.js";
+
+/**
  * Керує контейнером списку карток, рендерингом та подіями взаємодії з конспектами
  */
 export class NotesListView {
@@ -147,7 +149,7 @@ export class NotesListView {
             <header>
                 <div class="card-header-top">
                     <h3>
-                        <a href="/notes/${note.id}" data-link="">${note.title}</a>
+                        <a href="/notes/${escapeHtml(note.id)}" data-link="">${escapeHtml(note.title)}</a>
                     </h3>
                     <button type="button" class="btn-delete" title="Видалити конспект" aria-label="Видалити конспект">
                         <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
@@ -158,10 +160,10 @@ export class NotesListView {
                 <span class="badge-subject">${note.subject}</span>
             </header>
 
-            <p class="card-text">${note.text || "NOTEXT"}</p>
+            <p class="card-text">${escapeHtml(note.text)}</p>
 
             <footer>
-                <time datetime="${note.date}">${note.date}</time>
+                <time datetime="${escapeHtml(note.date)}">${escapeHtml(note.date)}</time>
                 <label>
                     <input type="checkbox" name="isLearned" ${isLearned ? "checked" : ""}>
                     Вивчено

@@ -106,5 +106,25 @@
     "date": "2026-10-29",
     "isLearned": true,
     "learned": true
+  },
+  {
+    "id": 1793241210298,
+    "title": "XSS attacks",
+    "subject": "Веб-програмування",
+    "text": "<img src=x onerror=\"alert('XSS')\">",
+    "pages": 2,
+    "date": "2026-10-29",
+    "isLearned": false,
+    "learned": false
+  },
+  {
+    "id": 1793242879715,
+    "title": "XSS2",
+    "subject": "Веб-програмування",
+    "text": "<img src=x onerror=\"alert('XSS')\">",
+    "pages": 4,
+    "date": "2026-10-29",
+    "isLearned": true,
+    "learned": true
   }
 ]
