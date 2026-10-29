@@ -1,0 +1,110 @@
+[
+  {
+    "id": 11,
+    "title": "et ea vero quia laudantium autem",
+    "subject": "Веб-програмування",
+    "text": "delectus reiciendis molestiae occaecati non minima eveniet qui voluptatibus\naccusamus in eum beatae sit\nvel qui neque voluptates ut commodi qui incidunt\nut animi commodi",
+    "pages": 1,
+    "learned": false,
+    "date": "2026-10-28",
+    "isLearned": true
+  },
+  {
+    "id": 12,
+    "title": "in quibusdam tempore odit est dolorem",
+    "subject": "Математичний аналіз",
+    "text": "itaque id aut magnam\npraesentium quia et ea odit et ea voluptas et\nsapiente quia nihil amet occaecati quia id voluptatem\nincidunt ea est distinctio odio",
+    "pages": 1,
+    "learned": false,
+    "date": "2026-10-28",
+    "isLearned": false
+  },
+  {
+    "id": 13,
+    "title": "dolorum ut in voluptas mollitia et saepe quo animi",
+    "subject": "Веб-програмування",
+    "text": "aut dicta possimus sint mollitia voluptas commodi quo doloremque\niste corrupti reiciendis voluptatem eius rerum\nsit cumque quod eligendi laborum minima\nperferendis recusandae assumenda consectetur porro architecto ipsum ipsam",
+    "pages": 1,
+    "learned": false,
+    "date": "2026-10-28",
+    "isLearned": false
+  },
+  {
+    "id": 14,
+    "title": "voluptatem eligendi optio",
+    "subject": "Математичний аналіз",
+    "text": "fuga et accusamus dolorum perferendis illo voluptas\nnon doloremque neque facere\nad qui dolorum molestiae beatae\nsed aut voluptas totam sit illum",
+    "pages": 1,
+    "learned": false,
+    "date": "2026-10-28",
+    "isLearned": true
+  },
+  {
+    "id": 15,
+    "title": "eveniet quod temporibus",
+    "subject": "Веб-програмування",
+    "text": "reprehenderit quos placeat\nvelit minima officia dolores impedit repudiandae molestiae nam\nvoluptas recusandae quis delectus\nofficiis harum fugiat vitae",
+    "pages": 1,
+    "learned": false,
+    "date": "2026-10-28",
+    "isLearned": false
+  },
+  {
+    "id": 16,
+    "title": "sint suscipit perspiciatis velit dolorum rerum ipsa laboriosam odio",
+    "subject": "Математичний аналіз",
+    "text": "suscipit nam nisi quo aperiam aut\nasperiores eos fugit maiores voluptatibus quia\nvoluptatem quis ullam qui in alias quia est\nconsequatur magni mollitia accusamus ea nisi voluptate dicta",
+    "pages": 1,
+    "learned": false,
+    "date": "2026-10-28"
+  },
+  {
+    "id": 17,
+    "title": "fugit voluptas sed molestias voluptatem provident",
+    "subject": "Веб-програмування",
+    "text": "eos voluptas et aut odit natus earum\naspernatur fuga molestiae ullam\ndeserunt ratione qui eos\nqui nihil ratione nemo velit ut aut id quo",
+    "pages": 1,
+    "learned": false,
+    "date": "2026-10-28",
+    "isLearned": false
+  },
+  {
+    "id": 18,
+    "title": "voluptate et itaque vero tempora molestiae",
+    "subject": "Математичний аналіз",
+    "text": "eveniet quo quis\nlaborum totam consequatur non dolor\nut et est repudiandae\nest voluptatem vel debitis et magnam",
+    "pages": 1,
+    "learned": false,
+    "date": "2026-10-28",
+    "isLearned": true
+  },
+  {
+    "id": 19,
+    "title": "adipisci placeat illum aut reiciendis qui",
+    "subject": "Веб-програмування",
+    "text": "illum quis cupiditate provident sit magnam\nea sed aut omnis\nveniam maiores ullam consequatur atque\nadipisci quo iste expedita sit quos voluptas",
+    "pages": 1,
+    "learned": false,
+    "date": "2026-10-28"
+  },
+  {
+    "id": 20,
+    "title": "doloribus ad provident suscipit at",
+    "subject": "Математичний аналіз",
+    "text": "qui consequuntur ducimus possimus quisquam amet similique\nsuscipit porro ipsam amet\neos veritatis officiis exercitationem vel fugit aut necessitatibus totam\nomnis rerum consequatur expedita quidem cumque explicabo",
+    "pages": 1,
+    "learned": false,
+    "date": "2026-10-28",
+    "isLearned": false
+  },
+  {
+    "id": 1793238555141,
+    "title": "sdfsdfs",
+    "subject": "Веб-програмування",
+    "text": "sdfsfdsfs",
+    "pages": 1,
+    "date": "2026-10-29",
+    "isLearned": true,
+    "learned": true
+  }
+]

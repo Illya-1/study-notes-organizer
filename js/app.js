@@ -2,10 +2,13 @@ import { NotesDB } from "./db/NotesDB.js";
 import { Router } from "./Router.js";
 import { NotesScreen } from "./screens/NotesScreen.js";
 import { NoteDetailsScreen } from "./screens/NoteDetailsScreen.js";
+import {ServerDB} from "./db/ServerDB.js";
 
 const API_URL = "https://jsonplaceholder.typicode.com/posts?userId=2";
 
 const notesDB = new NotesDB();
+const serverDB = new ServerDB();
+const db = serverDB;
 
 const routes = [
     { path: "/", screen: NotesScreen },
@@ -18,7 +21,7 @@ try {
     await initNotes();
 
     const appContainer = document.querySelector("#app");
-    const router = new Router(routes, appContainer, notesDB);
+    const router = new Router(routes, appContainer, db);
 
     await router.handleRoute();
 } catch (error) {
@@ -26,7 +29,7 @@ try {
 }
 
 async function initNotes() {
-    const dbNotes = await notesDB.getAllItems();
+    const dbNotes = await db.getAllItems();
     if (dbNotes.length > 0) return;
 
     try {
@@ -37,7 +40,7 @@ async function initNotes() {
 
         const data = await response.json();
         for (const item of data) {
-            await notesDB.addItem({
+            await db.addItem({
                 id: item.id,
                 title: item.title,
                 subject: item.id % 2 === 0 ? "Математичний аналіз" : "Веб-програмування",
@@ -59,7 +62,7 @@ async function migrateData() {
 
         if (oldNotes.length > 0) {
             for (const note of oldNotes) {
-                await notesDB.addItem(note);
+                await db.addItem(note);
             }
             localStorage.removeItem("notes");
         }
