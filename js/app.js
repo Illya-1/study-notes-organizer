@@ -15,7 +15,7 @@ async function main() {
         await notesSection.init();
     } catch (error) {
         notesSection.showError("На жаль, сталася помилка під час завантаження контенту!");
-        console.log(error)
+        console.error(error);
     }
 }
 
@@ -28,26 +28,44 @@ async function initNotes() {
     }
 }
 
+let editingNoteId = null;
+const submitBtn = form.querySelector('button[type="submit"]');
+
+// Передача конспекту у форму для редагування
+notesSection.listView.onEditNote = (note) => {
+    editingNoteId = note.id;
+    form.elements.subject.value = note.subject;
+    form.elements.title.value = note.title;
+    form.elements.pages.value = note.pages;
+    form.elements.text.value = note.text;
+    form.elements.learned.checked = Boolean(note.isLearned);
+
+    submitBtn.textContent = "Зберегти зміни";
+    form.scrollIntoView({ behavior: 'smooth' });
+};
+
+// Збереження нового або оновленого конспекту
 form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    const newNote = {
+    const noteData = {
         subject: form.elements.subject.value,
         title: form.elements.title.value.trim(),
         text: form.elements.text.value.trim(),
         pages: Number(form.elements.pages.value),
-        learned: form.elements.learned.checked,
+        isLearned: form.elements.learned.checked, // Тільки isLearned
         date: new Date().toISOString().split("T")[0],
-        id: Date.now(),
+        id: editingNoteId === null ? Date.now() : editingNoteId,
     };
 
-    await notesDB.addItem(newNote);
+    await notesDB.addItem(noteData);
     await notesSection.refresh();
 
     form.reset();
+    editingNoteId = null;
+    submitBtn.textContent = "Додати конспект";
 });
 
-// Слушатель валидации заголовка
 titlecInput.addEventListener("input", () => {
     if (titlecInput.validity.patternMismatch) {
         titlecInput.setCustomValidity('Тема має містити щонайменше 3 символи');
@@ -56,7 +74,6 @@ titlecInput.addEventListener("input", () => {
     }
 });
 
-// Загрузка по сети (переключает состояния через notesSection)
 async function loadDataFromNetwork() {
     try {
         notesSection.showLoading();
@@ -73,7 +90,7 @@ async function loadDataFromNetwork() {
                 subject: item.id % 2 === 0 ? "Математичний аналіз" : "Веб-програмування",
                 text: item.body,
                 pages: 1,
-                learned: false,
+                isLearned: false,
                 date: new Date().toISOString().split("T")[0]
             });
         }
@@ -96,6 +113,10 @@ async function migrateData() {
     const oldNotes = loadFromLocalStorage();
     if (oldNotes.length > 0) {
         for (const note of oldNotes) {
+            const isLearnedValue = Boolean(note.isLearned || note.learned);
+            delete note.learned;
+            note.isLearned = isLearnedValue;
+
             await notesDB.addItem(note);
         }
         localStorage.removeItem('notes');

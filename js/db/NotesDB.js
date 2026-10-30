@@ -7,6 +7,7 @@
     }
 
     open() {
+        //throw new Error('Testing error');
         if (this._db) {
             return this._db;
         }

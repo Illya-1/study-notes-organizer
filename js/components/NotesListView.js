@@ -15,6 +15,8 @@ export class NotesListView {
 
         this._beforeRenderHook = (items) => items;
 
+        this.onEditNote = null;
+
         this._initCardEvents();
     }
 
@@ -66,7 +68,7 @@ export class NotesListView {
      * @returns {number}
      */
     getLearnedCount() {
-        return this._rawItems.filter(item => item.learned || item.isLearned).length;
+        return this._rawItems.filter(item => Boolean(item.isLearned)).length;
     }
 
     /**
@@ -74,19 +76,28 @@ export class NotesListView {
      */
     _initCardEvents() {
         this.container.addEventListener("click", async (event) => {
-            const deleteBtn = event.target.closest(".btn-delete");
-            if (!deleteBtn) return;
+            const actionTarget = event.target.closest("[data-action]");
+            if (!actionTarget) return;
 
-            const card = deleteBtn.closest("[data-id]");
+            const card = actionTarget.closest("[data-id]");
             if (!card) return;
 
             const noteId = Number(card.dataset.id);
-            await this.db.deleteItem(noteId);
-            await this.render();
+            const action = actionTarget.dataset.action;
+
+            if (action === "edit") {
+                const note = this._rawItems.find(n => n.id === noteId);
+                if (note && typeof this.onEditNote === "function") {
+                    this.onEditNote(note);
+                }
+            } else if (action === "delete") {
+                await this.db.deleteItem(noteId);
+                await this.render();
+            }
         });
 
         this.container.addEventListener("change", async (event) => {
-            if (event.target.name !== "learned" && event.target.name !== "isLearned") return;
+            if (event.target.name !== "learned") return;
 
             const card = event.target.closest("[data-id]");
             if (!card) return;
@@ -98,8 +109,11 @@ export class NotesListView {
 
             const targetNote = this._rawItems.find(n => n.id === noteId);
             if (!targetNote) return;
-            
+
+            // В об'єкті бази фіксуємо виключно isLearned
             targetNote.isLearned = isChecked;
+            delete targetNote.learned;
+
             await this.db.addItem(targetNote);
         });
     }
@@ -125,8 +139,8 @@ export class NotesListView {
      */
     buildCard(note) {
         const card = document.createElement("article");
-        const isLearned = Boolean(note.learned || note.isLearned);
-
+        const isLearned = Boolean(note.isLearned);
+        
         card.className = `card ${isLearned ? "learned" : ""}`;
         card.dataset.subject = note.subject;
         card.dataset.id = note.id;
@@ -135,11 +149,16 @@ export class NotesListView {
             <header>
                 <div class="card-header-top">
                     <h3>${note.title}</h3>
-                    <button type="button" class="btn-delete" title="Видалити конспект" aria-label="Видалити конспект">
-                        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-                            <path d="M19 4h-3.5l-1-1h-5l-1 1H5v2h14M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12z"/>
-                        </svg>
-                    </button>
+                    <div class="card-actions">
+                        <button type="button" class="card-button edit-button" data-action="edit" title="Редагувати конспект" aria-label="Редагувати конспект">
+                            ✏️
+                        </button>
+                        <button type="button" class="card-button delete-button" data-action="delete" title="Видалити конспект" aria-label="Видалити конспект">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                                <path d="M19 4h-3.5l-1-1h-5l-1 1H5v2h14M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12z"/>
+                            </svg>
+                        </button>
+                    </div>
                 </div>
                 <span class="badge-subject">${note.subject}</span>
             </header>

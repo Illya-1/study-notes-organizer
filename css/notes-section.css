@@ -120,7 +120,7 @@
                 word-break: break-word;
             }
 
-            .btn-delete {
+            .card-button {
                 background: transparent;
                 border: none;
                 padding: 4px;
@@ -132,10 +132,19 @@
                 border-radius: 4px;
                 transition: color 0.2s, background-color 0.2s;
                 flex-shrink: 0;
-
+            }
+            
+            .delete-button{
                 &:hover {
                     color: var(--color-exam-soon);
                     background-color: rgba(239, 68, 68, 0.1);
+                }
+            }
+
+            .edit-button{
+                &:hover {
+                    color: var(--color-learned);
+                    background-color: rgba(203, 213, 225, 0.4);
                 }
             }
         }
